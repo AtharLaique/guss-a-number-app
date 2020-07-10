@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 //Custome Component
 import Card from "../components/Card";
@@ -6,6 +6,10 @@ import Input from "../components/Input";
 import color from "../constants/color";
 
 export default function StartGame() {
+    const [inputvalue , setInputValue]=useState('');
+    const onChangeText=(text)=>{
+       setInputValue(text.replace(/[^0-9]/g,''))
+    }
   return (
     <View style={styles.container}>
       <View>
@@ -19,6 +23,8 @@ export default function StartGame() {
             autoCorrect={false}
             keyboardType="decimal-pad"
             maxLength={2}
+            value={inputvalue}
+            onChangeText={onChangeText}
           />
           <View style={styles.buttonContainer}>
             <Button title="Reset" color={color.accent} />
