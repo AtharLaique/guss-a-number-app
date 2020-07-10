@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 //Custome Component
 import Card from '../components/Card';
+import color from '../constants/color';
 
 export default function StartGame() {
   return (
@@ -13,8 +14,8 @@ export default function StartGame() {
         <Text>Select A Number</Text>
               <TextInput />
               <View style={styles.buttonContainer}>
-                  <Button title="Reset"/>
-                  <Button title="Cancle"/>
+                  <Button title="Reset" color={color.accent}/>
+                  <Button title="Cancle" color={color.primary}/>
               </View>
         </Card>
              
