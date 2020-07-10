@@ -7,12 +7,15 @@ import StartGame from './screens/StartGame';
 
 export default function App() {
   return (
-    
-    <View>
+    <View style={styles.container}>
      <Header title="Guess A Number"/>
      <StartGame/>
     </View>
   );
 }
-
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+  },
+});
 
