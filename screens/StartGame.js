@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
 //Custome Component
 import Card from "../components/Card";
 import Input from "../components/Input";
-import Confirmed from "../screens/Confirmed"
+import Confirmed from "../screens/Confirmed";
 import color from "../constants/color";
 
+const fetchFonts = () => {
+  Font.loadAsync({
+    "open-sans-bold": require("../assets/fonts/OpenSans-Bold.ttf"),
+  });
+};
 export default function StartGame(props) {
   //State
   const [inputvalue, setInputValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState("");
+  const [dataLoded, setDataLoded] = useState(false);
   //Functions
   const onChangeText = (text) => {
     setInputValue(text.replace(/[^0-9]/g, ""));
@@ -64,8 +72,12 @@ export default function StartGame(props) {
           </View>
         </Card>
         {confirmed == true ? (
-          <Confirmed selectedNumber={selectedNumber} >
-          <Button title="Start Game" color={color.start} onPress={props.startGame} />
+          <Confirmed selectedNumber={selectedNumber}>
+            <Button
+              title="Start Game"
+              color={color.start}
+              onPress={props.startGame}
+            />
           </Confirmed>
         ) : null}
       </View>
@@ -97,5 +109,5 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: "center",
-  }
+  },
 });
