@@ -6,7 +6,7 @@ import Input from "../components/Input";
 import Confirmed from "../screens/Confirmed"
 import color from "../constants/color";
 
-export default function StartGame() {
+export default function StartGame(props) {
   //State
   const [inputvalue, setInputValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
@@ -32,9 +32,7 @@ export default function StartGame() {
     setConfirmed(false);
     setInputValue("");
   };
-  const startGame=()=>{
-    console.log("Start Game")
-  }
+
   
   return (
     <View style={styles.container}>
@@ -66,7 +64,9 @@ export default function StartGame() {
           </View>
         </Card>
         {confirmed == true ? (
-          <Confirmed selectedNumber={selectedNumber} startGame={startGame}/>
+          <Confirmed selectedNumber={selectedNumber} >
+          <Button title="Start Game" color={color.start} onPress={props.startGame} />
+          </Confirmed>
         ) : null}
       </View>
     </View>

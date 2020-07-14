@@ -10,7 +10,7 @@ export default function Confirmed(props) {
         <Card style={styles.confirm}>
           <Text>Your Selected </Text>
           <Text>{props.selectedNumber}</Text>
-          <Button title="Start Game" color={color.start} onPress={props.startGame} />
+          {props.children}
         </Card>
       </View>
     )
