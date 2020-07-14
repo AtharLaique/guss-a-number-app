@@ -1,15 +1,37 @@
-import React,{useState} from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 //Custome Component
 import Card from "../components/Card";
 import Input from "../components/Input";
 import color from "../constants/color";
 
 export default function StartGame() {
-    const [inputvalue , setInputValue]=useState('');
-    const onChangeText=(text)=>{
-       setInputValue(text.replace(/[^0-9]/g,''))
+  //State
+  const [inputvalue, setInputValue] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState("");
+  //Functions
+  const onChangeText = (text) => {
+    setInputValue(text.replace(/[^0-9]/g, ""));
+  };
+  const confirmInputHandler = () => {
+    const value = parseInt(inputvalue);
+    if (inputvalue == "" || value <= 0 || value > 99) {
+      Alert.alert("Inavlid Number !", "Choose A Number Between 1 & 99", [
+        { text: "Okay", style: "destructive", onPress: resetInputHandler },
+      ]);
+      return;
     }
+
+    setConfirmed(true);
+    setSelectedNumber(parseInt(inputvalue));
+    setInputValue("");
+  };
+  const resetInputHandler = () => {
+    setConfirmed(false);
+    setInputValue("");
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -27,10 +49,27 @@ export default function StartGame() {
             onChangeText={onChangeText}
           />
           <View style={styles.buttonContainer}>
-            <Button title="Reset" color={color.accent} />
-            <Button title="Cancle" color={color.primary} />
+            <Button
+              title="Reset"
+              color={color.accent}
+              onPress={resetInputHandler}
+            />
+            <Button
+              title="Confirm"
+              color={color.primary}
+              onPress={confirmInputHandler}
+            />
           </View>
         </Card>
+        {confirmed == true ? (
+          <View style={styles.confirmContainer}>
+            <Card style={styles.confirm}>
+              <Text>Your Selected </Text>
+              <Text>{selectedNumber}</Text>
+              <Button title="Start Game" color={color.start} />
+            </Card>
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -60,5 +99,14 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: "center",
+  },
+  confirmContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+  confirm: {
+    marginTop: 20,
+    alignItems: "center",
+    width: "55%",
   },
 });
