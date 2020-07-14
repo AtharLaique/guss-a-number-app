@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 //Custome Component
 import Card from "../components/Card";
 import Input from "../components/Input";
+import Confirmed from "../screens/Confirmed"
 import color from "../constants/color";
 
 export default function StartGame() {
@@ -31,7 +32,10 @@ export default function StartGame() {
     setConfirmed(false);
     setInputValue("");
   };
-
+  const startGame=()=>{
+    console.log("Start Game")
+  }
+  
   return (
     <View style={styles.container}>
       <View>
@@ -62,13 +66,7 @@ export default function StartGame() {
           </View>
         </Card>
         {confirmed == true ? (
-          <View style={styles.confirmContainer}>
-            <Card style={styles.confirm}>
-              <Text>Your Selected </Text>
-              <Text>{selectedNumber}</Text>
-              <Button title="Start Game" color={color.start} />
-            </Card>
-          </View>
+          <Confirmed selectedNumber={selectedNumber} startGame={startGame}/>
         ) : null}
       </View>
     </View>
@@ -99,14 +97,5 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: "center",
-  },
-  confirmContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  confirm: {
-    marginTop: 20,
-    alignItems: "center",
-    width: "55%",
-  },
+  }
 });
